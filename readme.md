@@ -29,7 +29,9 @@ Install Bicep extension in VSCode [click here](https://learn.microsoft.com/en-us
 
 ## Build .bicep file
 ```
+# It will generate .json file. Which can be deployed as ARM template. 
 az bicep build --file main.bicep
+
 ```
 
 ## Deploy
