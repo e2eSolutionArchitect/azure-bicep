@@ -29,13 +29,19 @@ Install Bicep extension in VSCode [click here](https://learn.microsoft.com/en-us
 
 ## Build .bicep file
 ```
+# It will generate .json file. Which can be deployed as ARM template. 
 az bicep build --file main.bicep
+
 ```
 
-``
-# deploy ARM template
-az deployment group create -f ./main.json -g <resource-group-name> -c
+## Deploy
+```
+# Deploy ARM template
+az deployment group create -f main.json -g <resource-group-name> -c
 
-# deploy Bicep
-az deployment group create -f ./main.bicep -g <resource-group-name> -c
-``
+# Deploy Bicep
+az deployment group create -f main.bicep -g <resource-group-name> -c
+
+# Deploy using subscription
+# az deployment sub create -l eastus -f main.bicep
+```
