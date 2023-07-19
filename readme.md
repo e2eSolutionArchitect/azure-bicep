@@ -9,6 +9,4 @@ bicep build .\main.bicep
 
 ``
 az deployment group create -f .\main.json -f <resource-group-name> -c
-
-# -c > if what if
 ``
