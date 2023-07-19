@@ -45,3 +45,6 @@ az deployment group create -f main.bicep -g <resource-group-name> -c
 # Deploy using subscription
 # az deployment sub create -l eastus -f main.bicep
 ```
+
+[![e2esa-bootcamp-posters-01](https://github.com/e2eSolutionArchitect/terraform/assets/62712515/485d9a63-da4b-4308-853d-cca3a5334e89)](https://e2esolutionarchitect.eventbrite.ca)
+Please visit https://e2esolutionarchitect.com. Feel free to write us for any queries to som@e2eSolutionArchitect.com
