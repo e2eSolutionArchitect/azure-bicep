@@ -22,12 +22,12 @@ Assuming Azure CLI is already installed
 ```
 az bicep install
 az bicep version
+```
 
-``
 Install Bicep extension in VSCode [click here](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#visual-studio-code-and-bicep-extension)
 
 
-## Build
+## Build .bicep file
 ```
 bicep build .\main.bicep
 ```
