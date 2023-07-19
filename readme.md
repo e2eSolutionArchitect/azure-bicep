@@ -1,5 +1,7 @@
 # Azure Bicep
 
+Bicep is a Domain Specific Language (DSL) for deploying Azure resources declaratively.
+
 - Good to read - https://github.com/azure/bicep
 - Bicep playground - https://aka.ms/bicepdemo
 - ARM to Bicep - select decompile button in bicep playground to change ARM template to Bicep file
