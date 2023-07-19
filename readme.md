@@ -15,5 +15,9 @@ bicep build .\main.bicep
 ```
 
 ``
-az deployment group create -f .\main.json -f <resource-group-name> -c
+# deploy ARM template
+az deployment group create -f ./main.json -g <resource-group-name> -c
+
+# deploy Bicep
+az deployment group create -f ./main.bicep -g <resource-group-name> -c
 ``
