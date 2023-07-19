@@ -4,6 +4,8 @@
 - Bicep playground - https://aka.ms/bicepdemo
 - ARM to Bicep - select decompile button in biceps playground to change ARM template to Bicep file
 
+[![HELPLINE](https://github.com/e2eSolutionArchitect/academy/assets/8308302/3b85acaf-50f5-4a4f-850d-46216de108af)](Helpline)(https://e2esolutionarchitect.com/helpline/)
+
 ## Build
 ```
 bicep build .\main.bicep
