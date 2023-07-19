@@ -32,10 +32,14 @@ Install Bicep extension in VSCode [click here](https://learn.microsoft.com/en-us
 az bicep build --file main.bicep
 ```
 
-``
-# deploy ARM template
+## Deploy
+```
+# Deploy ARM template
 az deployment group create -f ./main.json -g <resource-group-name> -c
 
-# deploy Bicep
+# Deploy Bicep
 az deployment group create -f ./main.bicep -g <resource-group-name> -c
-``
+
+# Deploy using subscription
+# az deployment sub create -l eastus -f main.bicep
+```
