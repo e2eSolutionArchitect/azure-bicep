@@ -3,8 +3,9 @@
 
 
 ## Deploy .bicep file
+
 ```
 # deploy by subscription
 az deployment sub create -l <location> -f main.bicep
 
-``
+```
