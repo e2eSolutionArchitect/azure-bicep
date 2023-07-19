@@ -35,10 +35,10 @@ az bicep build --file main.bicep
 ## Deploy
 ```
 # Deploy ARM template
-az deployment group create -f ./main.json -g <resource-group-name> -c
+az deployment group create -f main.json -g <resource-group-name> -c
 
 # Deploy Bicep
-az deployment group create -f ./main.bicep -g <resource-group-name> -c
+az deployment group create -f main.bicep -g <resource-group-name> -c
 
 # Deploy using subscription
 # az deployment sub create -l eastus -f main.bicep
