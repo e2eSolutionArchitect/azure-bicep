@@ -18,3 +18,10 @@ az deployment group create -f main.bicep -g <resource-group-name> -c
 - Create 3 subnets
 - Create a NSG which allows SSH, HTTP, HTTPS
 - Assign the NSG with a web subnet
+
+## Todo 
+- Provision 2 VMs using for loop
+- Install docker in VMs during initialization
+- Create Application Gateway
+- Associate 2 target VMs to the 'web' pool of Application Gateway
+- Create AppGW listeners for HTTP and HTTPS
