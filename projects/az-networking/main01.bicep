@@ -130,7 +130,7 @@ resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'=[for i 
       imageReference: {
         publisher: 'Canonical'
         offer: 'UbuntuServer'
-        sku: '18.04-LTS'
+        sku: '22.04-LTS'
         version: 'latest'
       }
     }
@@ -208,5 +208,3 @@ resource azPublicIPAddress 'Microsoft.Network/publicIPAddresses@2023-02-01'=[for
 // }
 
 
-output hostname0 string = azPublicIPAddress[0].properties.dnsSettings.fqdn
-output hostname1 string = azPublicIPAddress[1].properties.dnsSettings.fqdn
