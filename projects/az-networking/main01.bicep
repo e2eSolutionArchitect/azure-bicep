@@ -5,15 +5,17 @@ param location string = resourceGroup().location
 
 param adminUsername string
 
+@description('Password for the Virtual Machine.')
+@minLength(4)
 @secure()
 param adminPassword string 
 
-var vnet_name = 'vnet-01'
-var vmName = 'vm-01'
+var appName = 'webapp'
+param vmCount int = 2
 
 
 resource azVirtualNetwork  'Microsoft.Network/virtualNetworks@2023-02-01'={
-  name: vnet_name
+  name: toLower('${appName}-vnet-${uniqueString(resourceGroup().id)}')
   location: location
   properties: {
     addressSpace: {
@@ -108,8 +110,8 @@ resource azNsgrule_https 'Microsoft.Network/networkSecurityGroups/securityRules@
     protocol: 'TCP'
   }
 }
-resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'={
-  name: vmName
+resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'=[for i in range(0, vmCount):{
+  name: toLower('${appName}-vm-${i}-${uniqueString(resourceGroup().id)}')
   location: location
   properties: {
     hardwareProfile: {
@@ -117,7 +119,7 @@ resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'={
     }
     storageProfile: {
       osDisk: {
-        name: 'osdisk-01'
+        name: 'osdisk-${i}'
         createOption: 'FromImage'
         caching: 'ReadWrite'
         managedDisk: {
@@ -133,7 +135,7 @@ resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'={
       }
     }
     osProfile: {
-      computerName: vmName
+      computerName: toLower('${appName}-vm-${i}-${uniqueString(resourceGroup().id)}')
       adminUsername: adminUsername
       adminPassword: adminPassword
       linuxConfiguration: {
@@ -143,41 +145,68 @@ resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'={
     networkProfile: {
       networkInterfaces: [
         {
-          id: azNetworkInterface.id
+          id: azNetworkInterface[i].id
         }
       ]
     }
   }
-}
+  dependsOn: [
+    azNetworkInterface
+  ]
+}]
 
-resource azNetworkInterface 'Microsoft.Network/networkInterfaces@2023-02-01'={
-  name: 'nic-01'
+resource azNetworkInterface 'Microsoft.Network/networkInterfaces@2023-02-01'=[for i in range(0, vmCount):{
+  name: toLower('${appName}-nic-${i}-${uniqueString(resourceGroup().id)}')
   location: location
   properties: {
     ipConfigurations: [
       {
-        name: 'ipconfig-01'
+        name: 'ipconfig-${i}'
         properties: {
           subnet: {
             id: azSubnet_web_01.id
           }
           privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
-            id: azPublicIPAddress.id
+            id: azPublicIPAddress[i].id
           }
         }
       }
     ]
   }
-}
+  dependsOn: [
+    azVirtualNetwork
+    azPublicIPAddress
+  ]
+}]
 
-resource azPublicIPAddress 'Microsoft.Network/publicIPAddresses@2023-02-01'={
-  name: 'pip-01'
+resource azPublicIPAddress 'Microsoft.Network/publicIPAddresses@2023-02-01'=[for i in range(0, vmCount):{
+  name: toLower('${appName}-pip-${i}-${uniqueString(resourceGroup().id)}')
   location: location
   properties: {
     publicIPAllocationMethod: 'Dynamic'
   }
-}
+}]
 
 
+// resource routeTable 'Microsoft.Network/routeTables@2019-11-01' = {
+//   name: toLower('${appName}-rt')
+//   location: location
+//   properties: {
+//     routes: [
+//       {
+//         name: toLower('${appName}-route-01')
+//         properties: {
+//           addressPrefix: 'destinationCIDR'
+//           nextHopType: 'VirtualNetworkGateway'
+//           nextHopIpAddress: 'nextHopIp'
+//         }
+//       }
+//     ]
+//     disableBgpRoutePropagation: true
+//   }
+// }
 
+
+output hostname0 string = azPublicIPAddress[0].properties.dnsSettings.fqdn
+output hostname1 string = azPublicIPAddress[1].properties.dnsSettings.fqdn
