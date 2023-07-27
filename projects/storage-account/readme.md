@@ -15,3 +15,14 @@ az deployment group create -f main.bicep -g <resource-group-name> -c
 az deployment sub create -l <location> -f main.bicep
 
 ``
+
+## Delete the resource stack to avoid any cost
+Delete the resource-group to delete the resource stack created by the bicep template
+```
+# Azure CLI
+az group delete --name ExampleResourceGroup
+
+# PowerShell
+Remove-AzResourceGroup -Name ExampleResourceGroup
+
+```
