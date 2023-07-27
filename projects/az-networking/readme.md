@@ -25,3 +25,14 @@ az deployment group create -f main.bicep -g <resource-group-name> -c
 - Create Application Gateway
 - Associate 2 target VMs to the 'web' pool of Application Gateway
 - Create AppGW listeners for HTTP and HTTPS
+
+## Delete the resource stack to avoid any cost
+Delete the resource-group to delete the resource stack created by the bicep template
+```
+# Azure CLI
+az group delete --name ExampleResourceGroup
+
+# PowerShell
+Remove-AzResourceGroup -Name ExampleResourceGroup
+
+```
