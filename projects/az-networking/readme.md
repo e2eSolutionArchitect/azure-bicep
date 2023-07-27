@@ -7,11 +7,24 @@
 az bicep build --file main.bicep
 ```
 
+## Create Rource Group
 ``
-# deploy Bicep by resource group
+az group create --name bicep --location eastus
+
+# To list the resource groups in your subscription, 
+az group list
+
+# To get one resource group
+az group show --name exampleGroup
+``
+
+## Deploy Bicep by resource group
+
+``
 az deployment group create -f main.bicep -g <resource-group-name> -c
 
 ``
+
 
 # About this Bicep project
 - Create vnet
@@ -30,9 +43,9 @@ az deployment group create -f main.bicep -g <resource-group-name> -c
 Delete the resource-group to delete the resource stack created by the bicep template
 ```
 # Azure CLI
-az group delete --name ExampleResourceGroup
+az group delete --name exampleGroup
 
 # PowerShell
-Remove-AzResourceGroup -Name ExampleResourceGroup
+Remove-AzResourceGroup -Name exampleGroup
 
 ```
