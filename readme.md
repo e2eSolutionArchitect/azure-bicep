@@ -46,5 +46,17 @@ az deployment group create -f main.bicep -g <resource-group-name> -c
 # az deployment sub create -l eastus -f main.bicep
 ```
 
+## Delete the resource stack 
+To delete the resource stack please delete the resource-group by following commands or manually from portal
+
+```
+# Azure CLI
+az group delete --name ExampleResourceGroup
+
+# PowerShell
+Remove-AzResourceGroup -Name ExampleResourceGroup
+
+```
+
 [![e2esa-bootcamp-posters-01](https://github.com/e2eSolutionArchitect/terraform/assets/62712515/485d9a63-da4b-4308-853d-cca3a5334e89)](https://e2esolutionarchitect.eventbrite.ca)
 Please visit https://e2esolutionarchitect.com. Feel free to write us for any queries to som@e2eSolutionArchitect.com
