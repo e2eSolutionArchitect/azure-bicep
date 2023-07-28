@@ -39,7 +39,7 @@ param securityType string = 'TrustedLaunch'
 
 
 var appName = 'webapp'
-param vmCount int = 1
+param vmCount int = 2
 
 var azVirtualNetwork = 'webapp-vnet'
 var azSubnet_web_01 = 'subnet-web-01'
@@ -66,7 +66,7 @@ resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'=[for i 
   location: location
   properties: {
     hardwareProfile: {
-      vmSize: 'Standard_D2as_v4' //'Standard_D2as_v4' //'Standard_B1ls'
+      vmSize: 'Standard_B1s' //'Standard_D2as_v4' //'Standard_B1ls'
     }
     
     storageProfile: {
