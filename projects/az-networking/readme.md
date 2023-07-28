@@ -33,7 +33,7 @@ az deployment group create -f main.bicep -g <resource-group-name> -c
 - Assign the NSG with a web subnet
 - Provision 2 VMs using for loop
 - Install docker in VMs during initialization
-- Create Application Gateway
+- Create Application Gateway [MS referance](https://learn.microsoft.com/en-us/azure/templates/microsoft.network/applicationgateways?pivots=deployment-language-bicep)
 - Associate 2 target VMs to the 'web' pool of Application Gateway
 - Create AppGW listeners for HTTP and HTTPS
 
