@@ -54,7 +54,7 @@ Remove-AzResourceGroup -Name exampleGroup
 
 
 
-## Toubleshoot
+## Troubleshoot
 - Find cloud-init log
 ```
 login into your instance. browse to /var/log and open cloud-init-output.log
@@ -62,12 +62,12 @@ vi var/log/cloud-init-output.log
 ```
 
 
-# Docker handy commands
+# Docker handy commands [click here](https://github.com/e2eSolutionArchitect/scripts/tree/main/docker)
 ```
-add 'sudo' at front if needed or run below command
+add 'sudo' at the front if needed or run the below command
 sudo su -
 
-# Run httpd in backgroud on port 80
+# Run httpd in background on port 80
 sudo docker run -d -p <port-to-map>:<post-httpd-runs> httpd:latest
 sudo docker run -d -p 80:80 httpd:latest
 
