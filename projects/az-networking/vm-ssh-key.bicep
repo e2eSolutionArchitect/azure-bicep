@@ -37,13 +37,12 @@ param adminPasswordOrKey string
 
 param securityType string = 'TrustedLaunch'
 
-
-var appName = 'webapp'
-param vmCount int = 2
-
 var azVirtualNetwork = 'webapp-vnet'
 var azSubnet_web_01 = 'subnet-web-01'
 
+var appName = 'webapp'
+param vmCount int = 1
+var vmSize = ['Standard_D2as_v4','Standard_B1ls']
 
 var linuxConfiguration = {
   disablePasswordAuthentication: true
@@ -66,7 +65,7 @@ resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'=[for i 
   location: location
   properties: {
     hardwareProfile: {
-      vmSize: 'Standard_B1s' //'Standard_D2as_v4' //'Standard_B1ls'
+      vmSize: vmSize[0]
     }
     
     storageProfile: {
@@ -92,7 +91,8 @@ resource azVirtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01'=[for i 
       adminPassword: adminPasswordOrKey
       linuxConfiguration: ((authenticationType == 'password') ? null : linuxConfiguration)
       //customData: base64(concat('#!/bin/bash\n', 'echo "Hello, World!" > index.html\n', 'nohup python -m SimpleHTTPServer 80 &'))
-      customData:loadFileAsBase64('userdata.sh')
+      //customData:loadFileAsBase64('userdata.sh')
+      customData:loadFileAsBase64('userdata-docker.sh')
     }
     securityProfile: ((securityType == 'TrustedLaunch') ? securityProfileJson : null)
     networkProfile: {
