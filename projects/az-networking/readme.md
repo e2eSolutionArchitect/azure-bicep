@@ -49,3 +49,43 @@ az group delete --name exampleGroup
 Remove-AzResourceGroup -Name exampleGroup
 
 ```
+
+
+## Toubleshoot
+- Find cloud-init log
+```
+login into your instance. browse to /var/log and open cloud-init-output.log
+vi var/log/cloud-init-output.log
+```
+
+
+# Docker handy commands
+```
+add 'sudo' at front if needed or run below command
+sudo su -
+
+# Run httpd in backgroud on port 80
+sudo docker run -d -p <port-to-map>:<post-httpd-runs> httpd:latest
+sudo docker run -d -p 80:80 httpd:latest
+
+if you map the port to 8989 then the command will be like below and make sure the port 8989 is allosed in security group attached to the subnet of the instance. 
+
+sudo docker run -d -p 8989:80 httpd:latest
+
+In this case the url to access publicly will be
+http://<public-ip>:8989
+
+# check running containers
+docker ps
+
+# stop the container
+docker stop <containerId>
+
+# get IP of the docker instance or do docker inspect
+docker inspect <containerId>
+docker inspect <containerId> | grep IP
+
+# check if httpd is up and running
+curl <ip>
+it should show <html><body><h1>It works!</h1></body></html>
+```
