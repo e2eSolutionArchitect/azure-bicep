@@ -1,3 +1,6 @@
+# Run using
+# az deployment sub create -l eastus -f main.bicep
+
 targetScope ='subscription'
 
 @description('Specifies the location for resources.')
