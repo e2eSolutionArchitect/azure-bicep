@@ -1,5 +1,5 @@
-# Run using
-# az deployment sub create -l eastus -f main.bicep
+// Run using
+// az deployment sub create -l eastus -f main.bicep
 
 targetScope ='subscription'
 
