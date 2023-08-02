@@ -1,9 +1,9 @@
 targetScope ='subscription'
 
 @description('Specifies the location for resources.')
-param location string = 'eastus' 
+param location string = 'canadacentral' 
 
-var rg_name ='rg01'
+var rg_name ='rg01-temp'
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2022-09-01'={
   name: rg_name
