@@ -10,7 +10,7 @@ variables:
   azureServiceConnection: 'e2esa-azure-service-con'
   resourceGroupName: 'rg-dev'
   location: 'eastus'
-  templateFile: '$(System.DefaultWorkingDirectory)\projects\azure-bicep-host-website\src\network.bicep'
+  file: '$(System.DefaultWorkingDirectory)\projects\azure-bicep-host-website\src\network.bicep'
   environmentName: 'dev'
 
 pool:
