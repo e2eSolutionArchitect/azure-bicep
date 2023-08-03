@@ -35,4 +35,7 @@ stages:
               useGlobalConfig: false
               inlineScript: |
                 az --version
-                az deployment group create -g $(resourceGroupName) -f $(file) --parameters $(System.DefaultWorkingDirectory)/projects/azure-bicep-host-website/parameters/network.dev.bicepparam -c
+                az upgrade
+                pwd
+                ls -la
+                az deployment group create -g $(resourceGroupName) -f $(file) --parameters $(System.DefaultWorkingDirectory)/projects/azure-bicep-host-website/parameters/network.dev.bicepparam
