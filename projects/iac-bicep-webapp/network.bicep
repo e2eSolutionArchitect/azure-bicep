@@ -1,5 +1,5 @@
 
-// az deployment group create -g rg-networking-dev -f network.bicep --parameters ./parameters/network.dev.bicepparam -c
+// az deployment group create -g rg-dev -f network.bicep --parameters ./parameters/network.dev.bicepparam -c
 
 @description('Location for all resources.')
 param location string

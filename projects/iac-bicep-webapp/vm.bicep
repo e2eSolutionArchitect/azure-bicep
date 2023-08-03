@@ -1,4 +1,4 @@
-// az deployment group create -g rg-networking-dev -f vm.bicep --parameters ./parameters/vm.dev.bicepparam -c
+// az deployment group create -g rg-dev -f vm.bicep --parameters ./parameters/vm.dev.bicepparam -c
 
 
 @description('Location for all resources.')
