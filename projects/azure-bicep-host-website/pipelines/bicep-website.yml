@@ -21,6 +21,8 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy Azure BiCEP Infrastructure
+    environment: 
+      name: 'dev'
     strategy:
       runOnce:
         deploy:
