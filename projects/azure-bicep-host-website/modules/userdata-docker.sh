@@ -22,4 +22,4 @@ sudo docker pull httpd:latest
 mkdir website
 cd website
 echo "<html><center> This website was created by GK and this is version 1 <br> Below is the container instance detail <br> Hostname <b> $(hostname -f)</b> <br> Host IP:<b> $(hostname -I)</b> </center><html>" > index.html
-sudo docker run -d --name e2esa-web-app -p 80:80 -v ${PWD}:/usr/local/apache2/htdocs/ httpd:latest
+sudo docker run -d --name web-app -p 80:80 -v ${PWD}:/usr/local/apache2/htdocs/ httpd:latest

@@ -1,4 +1,4 @@
-// az deployment group create -g rg-dev -f vm.bicep --parameters ./parameters/vm.dev.bicepparam -c
+// az deployment group create -g rg-dev -f vmModule.bicep --parameters ../parameters/vm.dev.bicepparam -c
 
 
 @description('Location for all resources.')
@@ -10,7 +10,7 @@ param location string
   'sshPublicKey'
   'password'
 ])
-param authenticationType string = 'sshPublicKey'
+param authenticationType string
 
 var securityProfileJson = {
   uefiSettings: {
@@ -34,11 +34,13 @@ param adminPasswordOrKey string
   'Standard'
   'TrustedLaunch'
 ])
-param securityType string = 'TrustedLaunch'
+param securityType string
 
-var azVirtualNetwork = toLower('${appName}-vnet-${env}')
-var azSubnet_web_01 = toLower('subnet-web-01-${env}')
-param vmCount int = 1
+//var azVirtualNetwork = toLower('${appName}-vnet-${env}')
+//var azSubnet_web_01 = toLower('subnet-web-01-${env}')
+param azVirtualNetwork string
+param azSubnet_web_01 string
+param vmCount int 
 param vmSize array 
 param vmImagePublisher string
 param vmImageOffer string
@@ -144,3 +146,4 @@ resource azPublicIPAddress 'Microsoft.Network/publicIPAddresses@2023-02-01'=[for
   }
 }]
 
+output azvirtualMachineIp array = [for i in range(0, vmCount):azPublicIPAddress[i].id]

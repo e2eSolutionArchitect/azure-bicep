@@ -1,4 +1,4 @@
-// az deployment group create -g rg-dev -f appgw.bicep --parameters ./parameters/appgw.dev.bicepparam -c
+// az deployment group create -g rg-dev -f appgwModule.bicep --parameters ./parameters/appgw.dev.bicepparam -c
 
 @description('Location for all resources.')
 param location string
@@ -177,3 +177,5 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2023-02-01' = {
     applicationGateWay
   ]
 }
+
+

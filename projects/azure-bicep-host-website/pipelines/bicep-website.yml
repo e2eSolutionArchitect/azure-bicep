@@ -1,0 +1,36 @@
+name: Deploy Azure Network Infrastructure $(Build.BuildId)
+
+trigger: none
+#  branches:
+#    include:
+#    - main
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureServiceConnection: 'e2esa-azure-service-con'
+  resourceGroupName: 'rg-dev'
+  location: 'eastus'
+  templateFile: '$(System.DefaultWorkingDirectory)\projects\azure-bicep-host-website\src\network.bicep'
+  environmentName: 'dev'
+
+pool:
+  vmImage: $(vmImageName)
+
+stages:
+- stage: Deploy
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy Azure BiCEP Infrastructure
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: $(azureServiceConnection)
+              scriptType: bash
+              scriptLocation: inlineScript
+              useGlobalConfig: false
+              inlineScript: |
+                az --version
+                az deployment group create -g $(resourceGroupName) -f $(file) --parameters ../parameters/network.dev.bicepparam -c

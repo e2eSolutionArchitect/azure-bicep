@@ -92,3 +92,26 @@ docker inspect <containerId> | grep IP
 curl <ip>
 it should show <html><body><h1>It works!</h1></body></html>
 ```
+
+
+
+
+# Step 1:  Create two resource groups 1. rg-networking 2. rg-app in Location Canada Central
+```
+// Run below command to create the deployment
+az deployment sub create -l canadacentral -f rg.bicep --parameters location=canadacentral resourceGroups="['rg-networking','rg-app']" env=dev -c
+
+//If using parameter file rg.dev.bicepparam, then run below command
+az deployment sub create -l canadacentral -f rg.bicep --parameters ./parameters/rg.dev.bicepparam -c
+```
+
+```
+param resourceTag string = '${resourceGroup().name}-${resourceGroup().location}-resource'
+```
+
+
+# Step 2: Provision Network
+
+```
+az deployment group create -g rg-networking-dev -f network.bicep --parameters ./parameters/network.dev.bicepparam -c
+```

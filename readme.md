@@ -41,14 +41,17 @@ az deployment group create -f main.json -g <resource-group-name> -c
 
 # Deploy Bicep
 az deployment group create -f main.bicep -g <resource-group-name> -c
+# Using parameter file
+az deployment group create -g rg-dev -f main.bicep --parameters ./parameters/main.dev.bicepparam -c
 
 # Deploy using subscription
-# az deployment sub create -l eastus -f main.bicep
+az deployment sub create -l eastus -f main.bicep
+# Using parameter file
+az deployment sub create -l eastus -f rg.bicep --parameters ./parameters/rg.dev.bicepparam -c
 ```
 
-## Delete the resource stack 
-To delete the resource stack please delete the resource-group by following commands or manually from portal
-
+# IMPORTANT: Avoid unnecessary cost by terminating the resources after experiment
+Run below command to remove the resource group. Deleting the resource group will delete all the resources under the resource group. You do not need to terminate resources individually
 ```
 # Azure CLI
 az group delete --name ExampleResourceGroup

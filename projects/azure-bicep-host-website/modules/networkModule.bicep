@@ -1,10 +1,14 @@
 
-// az deployment group create -g rg-dev -f network.bicep --parameters ./parameters/network.dev.bicepparam -c
+// az deployment group create -g rg-dev -f networkModule.bicep --parameters ./parameters/network.dev.bicepparam -c
 
 @description('Location for all resources.')
 param location string
 
 param appName string
+param vnet_cidr array
+param azSubnet_apgw_ip_cidr string
+param azSubnet_web_01_ip_cidr string
+param azSubnet_web_02_ip_cidr string
 param env string
 
 param dateTime string = utcNow('u')
@@ -21,9 +25,7 @@ resource azVirtualNetwork  'Microsoft.Network/virtualNetworks@2023-02-01'={
   location: location
   properties: {
     addressSpace: {
-      addressPrefixes: [
-        '192.168.0.0/25'
-      ]
+      addressPrefixes: vnet_cidr
     }
   }
   tags: tags
@@ -33,7 +35,7 @@ resource azSubnet_apgw 'Microsoft.Network/virtualNetworks/subnets@2023-02-01' = 
   name: 'subnet-apgw-${env}'
   parent: azVirtualNetwork
   properties: {
-    addressPrefix: '192.168.0.0/27'
+    addressPrefix: azSubnet_apgw_ip_cidr
   }
 }
 
@@ -42,7 +44,7 @@ resource azSubnet_web_01 'Microsoft.Network/virtualNetworks/subnets@2023-02-01' 
   name: 'subnet-web-01-${env}'
   parent: azVirtualNetwork
   properties: {
-    addressPrefix: '192.168.0.32/27'
+    addressPrefix: azSubnet_web_01_ip_cidr
     networkSecurityGroup: {
       id: azSecurityGroup.id
     }
@@ -50,13 +52,16 @@ resource azSubnet_web_01 'Microsoft.Network/virtualNetworks/subnets@2023-02-01' 
 }
 
 
-resource azSubnet_web_02 'Microsoft.Network/virtualNetworks/subnets@2023-02-01' = {
-  name: 'subnet-web-02-${env}'
-  parent: azVirtualNetwork
-  properties: {
-    addressPrefix: '192.168.0.64/27'
-  }
-}
+ resource azSubnet_web_02 'Microsoft.Network/virtualNetworks/subnets@2023-02-01' = {
+   name: 'subnet-web-02-${env}'
+   parent: azVirtualNetwork
+   properties: {
+     addressPrefix: azSubnet_web_02_ip_cidr
+   }
+   dependsOn: [
+     azSubnet_web_01
+   ]
+ }
 
 
 
@@ -117,3 +122,12 @@ resource azNsgrule_https 'Microsoft.Network/networkSecurityGroups/securityRules@
     protocol: 'TCP'
   }
 }
+
+output azvirtualnetwork array = [
+  azVirtualNetwork.name
+  azVirtualNetwork.properties.addressSpace.addressPrefixes[0]
+]
+
+output nsg array = [
+  azSecurityGroup.name
+]
