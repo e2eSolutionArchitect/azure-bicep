@@ -1,5 +1,6 @@
 name: Deploy Azure Network Infrastructure $(Build.BuildId)
 
+
 trigger: none
 #  branches:
 #    include:
@@ -27,16 +28,15 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: AzureCLI@2
+          - task: AzureResourceManagerTemplateDeployment@3
             inputs:
-              azureSubscription: $(azureServiceConnection)
-              scriptType: bash
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
-              scriptLocation: inlineScript
-              useGlobalConfig: false
-              inlineScript: |
-                az --version
-                az upgrade
-                pwd
-                ls -la
-                az deployment group create -g $(resourceGroupName) -f $(file) --parameters $(System.DefaultWorkingDirectory)/projects/azure-bicep-host-website/parameters/network.dev.bicepparam
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'e2esa-azure-service-con'
+              subscriptionId: 'bf793555-a4bc-42e3-a520-49d84c859f19'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'rg-demo-01'
+              location: 'Canada Central'
+              templateLocation: 'URL of the file'
+              csmFileLink: 'https://github.com/e2eSolutionArchitect/azure-bicep/blob/main/projects/azure-bicep-host-website/src/network.bicep'
+              csmParametersFileLink: 'https://github.com/e2eSolutionArchitect/azure-bicep/blob/main/projects/azure-bicep-host-website/parameters/network.dev.bicepparam'
+              deploymentMode: 'Validation'
