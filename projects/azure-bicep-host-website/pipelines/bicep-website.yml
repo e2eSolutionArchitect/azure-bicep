@@ -31,6 +31,7 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnection)
               scriptType: bash
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
               scriptLocation: inlineScript
               useGlobalConfig: false
               inlineScript: |
